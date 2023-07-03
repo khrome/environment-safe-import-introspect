@@ -1,19 +1,19 @@
 {
-    "name": "environment-safe-template",
+    "name": "environment-safe-import-introspect",
     "version": "0.0.1",
     "main": "dist/index.cjs",
     "module": "src/index.mjs",
-    "homepage": "https://github.com/khrome/environment-safe-template",
-    "description": "A template for buildless module development",
+    "homepage": "https://github.com/khrome/environment-safe-import-introspect",
+    "description": "When you need to look at the imports in a particular JS file and need to support many usage scenarios",
     "keywords": [],
-    "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
+    "author": "Abbey Hawk Sparrow <khrome>(http://abbeyhawksparrow.com)",
     "contributors": [],
     "repository": {
-          "type": "git",
-          "url": "git@github.com:khrome/environment-safe-template.git"
-     },
+        "type": "git",
+        "url": "https://github.com/khrome/environment-safe-import-introspect"
+    },
     "bugs": {
-          "url": "https://github.com/khrome/environment-safe-template/issues"
+        "url": "https://api.github.com/repos/khrome/environment-safe-import-introspect/issues"
     },
     "license": "MIT",
     "devDependencies": {
