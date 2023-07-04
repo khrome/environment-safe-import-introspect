@@ -1,13 +1,17 @@
 /* global describe:false, it:false */
 import { chai } from 'environment-safe-chai';
-import { } from '../src/index.mjs';
+import { scanImports, setBaseDir } from '../src/index.mjs';
 const should = chai.should();
-should.exist({});
+console.log('foo')
 
 describe('module', ()=>{
     describe('performs a simple test suite', ()=>{
-        it('loads', async ()=>{
-            
+        it('can profile this file', async ()=>{
+            setBaseDir('/');
+            const result = await scanImports('./test/test.mjs');
+            should.exist(result);
+            result.indexOf('environment-safe-chai').should.not.equal(-1);
+            result.indexOf('../src/index.mjs').should.not.equal(-1);
         });
     });
 });

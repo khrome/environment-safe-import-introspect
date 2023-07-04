@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <!-- Disbaled for now -->
   <head>
     <title>Mocha Tests</title>
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
@@ -8,26 +9,24 @@
     <div id="mocha"></div>
     <script src="../node_modules/mocha/mocha.js"></script>
     <script>mocha.setup('bdd')</script>
-    <script type="importmap">
-        {
-            "imports": {
-                "chai": "../node_modules/chai/chai.js",
-                "environment-safe-chai": "../node_modules/environment-safe-chai/environment-safe-chai.js",
-                "module": "../node_modules/browser-or-node/src/index.js",
-                "node:events": "../node_modules/extended-emitter/node-events.mjs",
-                "path": "../node_modules/browser-or-node/src/index.js",
-                "browser-or-node": "../node_modules/browser-or-node/src/index.js"
-            }
-        }
-    </script>
-    <script type="module" src="test.mjs"></script>
     <script>
+      window.onerror = function (message, file, line, col, error) {
+          console.log(message, "from", error.stack);
+      };
+    </script>
+    <script>
+      console.log('???', location.href, /^file:\/\/\//.test(location.href));
       if (/^file:\/\/\//.test(location.href)) {
           let path = './';
           let orig = fetch;
-          window.fetch = (resource) => ((/^[^/:]*:/.test(resource)) ?
+          console.log('???', location.href);
+          window.fetch = (resource) => {
+            console.log('>>>', (/^[^/:]*:/.test(resource), resource));
+            return (
+              (/^[^/:]*:/.test(resource)) ?
               orig(resource) :
               new Promise(function(resolve, reject) {
+                  console.log('***', resource);
                   let request = new XMLHttpRequest();
       
                   let fail = (error) => {reject(error)};
@@ -61,11 +60,28 @@
                   })));
                   request.open('GET', resource.replace(/^\//, path));
                   request.send();
-              })
+              }
+            )
           );
+        }
       }
     </script>
+    <script type="importmap">
+        {
+            "imports": {
+                "chai": "../node_modules/chai/chai.js",
+                "environment-safe-chai": "../node_modules/environment-safe-chai/environment-safe-chai.js",
+                "module": "../node_modules/browser-or-node/src/index.js",
+                "node:events": "../node_modules/extended-emitter/node-events.mjs",
+                "path": "../node_modules/browser-or-node/src/index.js",
+                "es-module-lexer": "../node_modules/es-module-lexer/index.js",
+                "browser-or-node": "../node_modules/browser-or-node/src/index.js"
+            }
+        }
+    </script>
+    <script type="module" src="test.mjs" onload="console.log('ping')" onerror="console.log('pong')"></script>
     <script type="module">
+      console.log('!!!!')
         mocha.run();
     </script>
   </body>
